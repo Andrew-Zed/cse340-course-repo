@@ -3,8 +3,8 @@ import express from 'express';
 import { fileURLToPath } from 'url';
 import path from 'path';
 
-const NODE_ENV = process.env.NODE_ENV?.toLocaleLowerCase || "production";
-const PORT = process.PORT || 3000;
+const NODE_ENV = process.env.NODE_ENV?.toLocaleLowerCase() || "production";
+const PORT = process.env.PORT || 3000;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
