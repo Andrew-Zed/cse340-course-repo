@@ -4,9 +4,14 @@
         <p>Here are a few of our partner organizations</p>
 
         <ul>
-            <li><img src="/images/brightfuture-logo.png" alt="BrightFuture Builders logo"></li>
-            <li><img src="/images/greenharvest-logo.png" alt="GreenHarvest Growers logo"></li>
-            <li><img src="/images/unityserve-logo.png" alt="UnityServe Volunteers logo"></li>
+
+            <% organizations.forEach(org => { %>
+                <li>
+                    <img src="/images/<%= org.logo_filename %>" alt="<%= org.name %> logo">
+                    <strong><%= org.name %></strong>: <%= org.contact_email %>
+                </li>
+            <% }) %>
+
         </ul>
     </main>
 <%- include('partials/footer') %>
