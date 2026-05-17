@@ -13,7 +13,16 @@ import { Pool } from 'pg';
  */
 const pool = new Pool({
     connectionString: process.env.DB_URL,
-    ssl: false
+
+   /**
+     * Render PostgreSQL requires SSL.
+     * rejectUnauthorized: false prevents Node.js from rejecting Render's
+     * self-signed certificate during deployment.
+     */
+    ssl: {
+        rejectUnauthorized: false
+    }
+
 });
 
 /**
