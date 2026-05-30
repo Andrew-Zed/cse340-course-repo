@@ -1,8 +1,9 @@
-import { getAllProjects } from '../models/project.js';
+import { getUpcomingProjects, getProjectDetails } from '../models/project.js';
+import { getCategoriesByProjectId } from '../models/categories.js';
 
 const showProjectsPage = async (req, res, next) => {
     try {
-        const projects = await getAllProjects();
+        const projects = await getUpcomingProjects(5);
         const title = 'Service Projects';
         res.render('projects', { title, projects });
     } catch (error) {
@@ -10,7 +11,34 @@ const showProjectsPage = async (req, res, next) => {
     }
 };
 
-export { showProjectsPage };
+const showProjectDetailsPage = async (req, res, next) => {
+    try {
+        const projectId = req.params.id;
+
+        if (!/^\d+$/.test(projectId)) {
+            const err = new Error('Invalid Project ID Format. ID must be a number.');
+            err.status = 400;
+            return next(err);
+        }
+
+        const projectDetails = await getProjectDetails(projectId);
+
+        if (!projectDetails) {
+            const err = new Error('Requested Project Not Found');
+            err.status = 404;
+            return next(err);
+        }
+
+        const categories = await getCategoriesByProjectId(projectId);
+        const title = projectDetails.title;
+
+        res.render('project', { title, projectDetails, categories });
+    } catch (error) {
+        next(error);
+    }
+};
+
+export { showProjectsPage, showProjectDetailsPage };
 
 
 
