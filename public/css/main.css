@@ -1,30 +1,59 @@
-html, body {
+html,
+body {
     background-color: lightblue;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 20px;
 }
 
-body {
-    nav {
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
 
-        li {
-            display: inline;
-            margin-right: 15px;
-        }
+nav li {
+    display: inline;
+    margin-right: 15px;
+}
 
-        a {
-            text-decoration: none;
-            color: #333;
-            font-weight: bold;
+nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
 
-            &:hover {
-                color: #0066cc;
-            }
-        }
-    }
-}              
+nav a:hover {
+    color: #0066cc;
+}
+
+/* Flash message styles */
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.alert.success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.alert.error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+.alert.warning {
+    color: #856404;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+}
+
+.alert.info {
+    color: #0c5460;
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+}
