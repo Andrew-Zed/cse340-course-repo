@@ -29,7 +29,7 @@ import {
     processAssignCategoriesForm,
     categoryValidation
 } from './controllers/categories.js';
-import { showUserRegistrationForm, processUserRegistrationForm } from './controllers/users.js';
+import { showUserRegistrationForm, processUserRegistrationForm, showLoginForm, processLoginForm, processLogout } from './controllers/users.js';
 import { testErrorPage } from './controllers/errors.js';
 
 const router = express.Router();
@@ -63,6 +63,10 @@ router.post('/edit-organization/:id', organizationValidation, processEditOrganiz
 // User registration routes
 router.get('/register', showUserRegistrationForm);
 router.post('/register', processUserRegistrationForm);
+
+router.get('/login', showLoginForm);
+router.post('/login', processLoginForm);
+router.get('/logout', processLogout);
 
 // Test error page route
 router.get('/test-error', testErrorPage);
