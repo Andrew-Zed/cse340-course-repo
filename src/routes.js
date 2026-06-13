@@ -37,7 +37,8 @@ import {
     processLogout,
     requireLogin,
     requireRole,
-    showDashboard
+    showDashboard,
+    showUsersPage
 } from './controllers/users.js';
 import { testErrorPage } from './controllers/errors.js';
 
@@ -78,6 +79,7 @@ router.post('/login', processLoginForm);
 router.get('/logout', processLogout);
 
 router.get('/dashboard', requireLogin, showDashboard);
+router.get('/users', requireRole('admin'), showUsersPage);
 
 // Test error page route
 router.get('/test-error', testErrorPage);
