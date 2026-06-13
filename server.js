@@ -49,8 +49,12 @@ app.use((req, res, next) => {
 // Middleware: Setup view layout global environment scope variables
 app.use((req, res, next) => {
     res.locals.isLoggedIn = false;
+    res.locals.isAdmin = false;
+    res.locals.user = null;
     if (req.session && req.session.user) {
         res.locals.isLoggedIn = true;
+        res.locals.isAdmin = req.session.user.role_name === 'admin';
+        res.locals.user = req.session.user;
     }
 
     res.locals.NODE_ENV = NODE_ENV;

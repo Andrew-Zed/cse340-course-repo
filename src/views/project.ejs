@@ -14,8 +14,10 @@
     </p>
     <p><strong>Location:</strong> <%= projectDetails.location %></p>
     <p><strong>Description:</strong> <%= projectDetails.description %></p>
-    <p><a href="/edit-project/<%= projectDetails.project_id %>">Edit Project</a></p>
-    <p><a href="/assign-categories/<%= projectDetails.project_id %>">Assign Categories</a></p>
+    <% if (user && user.role_name === 'admin') { %>
+        <p><a href="/edit-project/<%= projectDetails.project_id %>">Edit Project</a></p>
+        <p><a href="/assign-categories/<%= projectDetails.project_id %>">Assign Categories</a></p>
+    <% } %>
 
     <h3>Categories</h3>
     <% if (categories && categories.length > 0) { %>
