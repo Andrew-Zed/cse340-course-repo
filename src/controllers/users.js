@@ -45,7 +45,7 @@ const processLoginForm = async (req, res) => {
             if (res.locals.NODE_ENV === 'development') {
                 console.log('User logged in:', user);
             }
-            res.redirect('/');
+            res.redirect('/dashboard');
         } else {
             req.flash('error', 'Invalid email or password.');
             res.redirect('/login');
@@ -57,16 +57,31 @@ const processLoginForm = async (req, res) => {
     }
 };
 
-const processLogout = async (req, res) => { 
+const processLogout = (req, res) => {
+    req.session.destroy((err) => {
+        if (err) console.error('Error destroying session:', err);
+        res.redirect('/login');
+    });
+};
 
-    if (req.session.user) {
-        delete req.session.user; // Clear user information from session
+const requireLogin = (req, res, next) => {
+    if (!req.session || !req.session.user) {
+        req.flash('error', 'You must be logged in to access that page.');
+        return res.redirect('/login');
     }
+    next();
+};
 
-    req.flash('success', 'Logged out successful!.');
-    res.redirect('/login'); // Redirect to login page after logout
-    
+const showDashboard = (req, res) => {
+
+    const user = req.session.user;
+
+    res.render('dashboard', { 
+        title: 'Dashboard',
+        name: user.name,
+        email: user.email,
+     });
 };
 
 
-export { showUserRegistrationForm, processUserRegistrationForm, showLoginForm, processLoginForm, processLogout };
+export { showUserRegistrationForm, processUserRegistrationForm, showLoginForm, processLoginForm, processLogout, requireLogin, showDashboard };

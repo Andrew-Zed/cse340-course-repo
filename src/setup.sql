@@ -274,7 +274,7 @@ CREATE TABLE users (
 );
 
 
-- Insert a test user
+-- Insert a test user
 INSERT INTO users (name, email, password_hash, role_id) 
 VALUES ('testuser', 'test@example.com', 'placeholder_hash', 1);
 
