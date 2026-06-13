@@ -285,3 +285,25 @@ JOIN roles r ON u.role_id = r.role_id;
 
 -- Delete the test user
 DELETE FROM users WHERE email = 'test@example.com';
+
+
+-- ========================================
+-- Project Volunteer Junction Table
+-- ========================================
+CREATE TABLE project_volunteer (
+    user_id INTEGER NOT NULL,
+    project_id INTEGER NOT NULL,
+
+    CONSTRAINT pk_project_volunteer
+        PRIMARY KEY (user_id, project_id),
+
+    CONSTRAINT fk_pv_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(user_id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_pv_project
+        FOREIGN KEY (project_id)
+        REFERENCES service_project(project_id)
+        ON DELETE CASCADE
+);

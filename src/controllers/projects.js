@@ -2,6 +2,7 @@ import { body, validationResult } from 'express-validator';
 import { getUpcomingProjects, getProjectDetails, createProject, updateProject } from '../models/project.js';
 import { getCategoriesByProjectId } from '../models/categories.js';
 import { getAllOrganizations } from '../models/organizations.js';
+import { isVolunteering } from '../models/volunteers.js';
 
 const projectValidation = [
     body('title')
@@ -55,7 +56,12 @@ const showProjectDetailsPage = async (req, res, next) => {
         const categories = await getCategoriesByProjectId(projectId);
         const title = projectDetails.title;
 
-        res.render('project', { title, projectDetails, categories });
+        let volunteering = false;
+        if (req.session && req.session.user) {
+            volunteering = await isVolunteering(req.session.user.user_id, projectId);
+        }
+
+        res.render('project', { title, projectDetails, categories, volunteering });
     } catch (error) {
         next(error);
     }
