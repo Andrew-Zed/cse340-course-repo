@@ -1,23 +1,27 @@
 <%- include('partials/header') %>
-    <main>
+<main>
+    <div class="page-header">
         <h1><%= title %></h1>
-        <p>Here are a few of our partner organizations</p>
+        <p>Partner organizations coordinating volunteer projects</p>
+    </div>
 
-        <ul>
+    <ul class="card-list">
+        <% organizations.forEach(org => { %>
+            <li class="card">
+                <img src="/images/<%= org.logo_filename %>" alt="<%= org.name %> logo"
+                     style="max-height: 56px; max-width: 120px; display: block; margin-bottom: 10px;">
+                <p class="card-title">
+                    <a href="/organization/<%= org.organization_id %>"><%= org.name %></a>
+                </p>
+                <p class="card-meta"><%= org.contact_email %></p>
+            </li>
+        <% }) %>
+    </ul>
 
-            <% organizations.forEach(org => { %>
-                <li>
-                    <img src="/images/<%= org.logo_filename %>" alt="<%= org.name %> logo">
-                    <a href="/organization/<%= org.organization_id %>"><%= org.name %></a>:
-                    <strong><%= org.name %></strong>: <%= org.contact_email %>
-                </li>
-            <% }) %>
-
-        </ul>
-
-        <% if (user && user.role_name === 'admin') { %>
-            <a href="/new-organization">Add New Organization</a>
-        <% } %>
-
-    </main>
+    <% if (user && user.role_name === 'admin') { %>
+        <div class="admin-actions">
+            <a href="/new-organization">+ Add New Organization</a>
+        </div>
+    <% } %>
+</main>
 <%- include('partials/footer') %>

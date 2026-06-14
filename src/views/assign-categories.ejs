@@ -1,27 +1,31 @@
 <%- include('partials/header') %>
 <main>
-    <h1><%= projectDetails.title %></h1>
+    <div class="page-header">
+        <h1><%= projectDetails.title %></h1>
+        <p>Assign categories to this project</p>
+    </div>
 
-    <h2>Assign Categories</h2>
-    <form action="/assign-categories/<%= projectId %>" method="POST">
+    <div class="form-wrapper">
+        <form action="/assign-categories/<%= projectId %>" method="POST">
+            <div class="form-group">
+                <% categories.forEach(category => { %>
+                    <div style="margin-bottom: 10px;">
+                        <label style="display: flex; align-items: center; gap: 8px; font-weight: normal; cursor: pointer;">
+                            <input
+                                type="checkbox"
+                                id="category-<%= category.category_id %>"
+                                name="categoryIds"
+                                value="<%= category.category_id %>"
+                                <%= assignedCategories.some(ac => ac.category_id === category.category_id) ? 'checked' : '' %>
+                            />
+                            <%= category.name %>
+                        </label>
+                    </div>
+                <% }); %>
+            </div>
 
-        <div class="form-group">
-            <% categories.forEach(category => { %>
-                <div>
-                    <input
-                        type="checkbox"
-                        id="category-<%= category.category_id %>"
-                        name="categoryIds"
-                        value="<%= category.category_id %>"
-                        <%= assignedCategories.some(ac => ac.category_id === category.category_id) ? 'checked' : '' %>
-                    />
-                    <label for="category-<%= category.category_id %>"><%= category.name %></label>
-                </div>
-            <% }); %>
-        </div>
-
-        <button type="submit">Update Categories</button>
-    </form>
-
+            <button type="submit">Update Categories</button>
+        </form>
+    </div>
 </main>
 <%- include('partials/footer') %>

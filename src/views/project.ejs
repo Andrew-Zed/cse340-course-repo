@@ -1,50 +1,62 @@
 <%- include('partials/header') %>
 <main>
-    <h1><%= title %></h1>
-    <!-- <h2><%= projectDetails.title %></h2> -->
-    <p><strong>Organization:</strong>
-        <a href="/organization/<%= projectDetails.organization_id %>"><%= projectDetails.organization_name %></a>
-    </p>
-    <p><strong>Date:</strong>
-        <%= new Date(projectDetails.project_date).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        }) %>
-    </p>
-    <p><strong>Location:</strong> <%= projectDetails.location %></p>
-    <p><strong>Description:</strong> <%= projectDetails.description %></p>
-    <% if (isLoggedIn) { %>
-        <div class="volunteer-section">
-            <% if (volunteering) { %>
-                <p>You are volunteering for this project.</p>
-                <form action="/remove-volunteer/<%= projectDetails.project_id %>" method="POST">
-                    <button type="submit">Remove myself as a volunteer</button>
-                </form>
+    <div class="page-header">
+        <h1><%= title %></h1>
+    </div>
+
+    <article class="detail-view">
+        <dl class="detail-meta">
+            <dt>Organization</dt>
+            <dd><a href="/organization/<%= projectDetails.organization_id %>"><%= projectDetails.organization_name %></a></dd>
+
+            <dt>Date</dt>
+            <dd><%= new Date(projectDetails.project_date).toLocaleDateString('en-US', {
+                year: 'numeric', month: 'long', day: 'numeric'
+            }) %></dd>
+
+            <dt>Location</dt>
+            <dd><%= projectDetails.location %></dd>
+        </dl>
+
+        <div class="detail-section">
+            <h2>About this Project</h2>
+            <p><%= projectDetails.description %></p>
+        </div>
+
+        <% if (isLoggedIn) { %>
+            <div class="volunteer-section">
+                <% if (volunteering) { %>
+                    <p>You are volunteering for this project.</p>
+                    <form action="/remove-volunteer/<%= projectDetails.project_id %>" method="POST">
+                        <button type="submit">Remove myself as a volunteer</button>
+                    </form>
+                <% } else { %>
+                    <form action="/volunteer/<%= projectDetails.project_id %>" method="POST">
+                        <button type="submit">Volunteer for this project</button>
+                    </form>
+                <% } %>
+            </div>
+        <% } %>
+
+        <div class="detail-section">
+            <h3>Categories</h3>
+            <% if (categories && categories.length > 0) { %>
+                <ul>
+                    <% categories.forEach(category => { %>
+                        <li><a href="/category/<%= category.category_id %>"><%= category.name %></a></li>
+                    <% }) %>
+                </ul>
             <% } else { %>
-                <form action="/volunteer/<%= projectDetails.project_id %>" method="POST">
-                    <button type="submit">Volunteer for this project</button>
-                </form>
+                <p class="empty-state">No categories assigned to this project.</p>
             <% } %>
         </div>
-    <% } %>
 
-    <% if (user && user.role_name === 'admin') { %>
-        <p><a href="/edit-project/<%= projectDetails.project_id %>">Edit Project</a></p>
-        <p><a href="/assign-categories/<%= projectDetails.project_id %>">Assign Categories</a></p>
-    <% } %>
-
-    <h3>Categories</h3>
-    <% if (categories && categories.length > 0) { %>
-        <ul>
-            <% categories.forEach(category => { %>
-                <li>
-                    <a href="/category/<%= category.category_id %>"><%= category.name %></a>
-                </li>
-            <% }) %>
-        </ul>
-    <% } else { %>
-        <p>No categories are assigned to this project.</p>
-    <% } %>
+        <% if (user && user.role_name === 'admin') { %>
+            <div class="admin-actions">
+                <a href="/edit-project/<%= projectDetails.project_id %>">Edit Project</a>
+                <a href="/assign-categories/<%= projectDetails.project_id %>">Assign Categories</a>
+            </div>
+        <% } %>
+    </article>
 </main>
 <%- include('partials/footer') %>

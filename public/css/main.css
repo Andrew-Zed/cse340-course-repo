@@ -1,35 +1,79 @@
-html,
-body {
+/* === Reset & Base === */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html, body {
     background-color: lightblue;
     font-family: Arial, sans-serif;
     margin: 0;
-    padding: 20px;
+    padding: 0;
+    line-height: 1.6;
+    color: #222;
 }
 
+/* === Site Header === */
+.site-header {
+    background-color: #fff;
+    border-bottom: 2px solid #bbb;
+    padding: 0 24px;
+}
+
+.site-header-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.site-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: #222;
+    white-space: nowrap;
+}
+
+/* === Navigation === */
 nav ul {
-    list-style-type: none;
+    list-style: none;
     padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 14px;
 }
 
 nav li {
     display: inline;
-    margin-right: 15px;
+    margin: 0;
 }
 
 nav a {
     text-decoration: none;
     color: #333;
     font-weight: bold;
+    font-size: 0.95rem;
 }
 
 nav a:hover {
     color: #0066cc;
 }
 
-/* Flash message styles */
+/* === Flash Messages === */
+.flash-messages {
+    max-width: 960px;
+    margin: 16px auto 0;
+    padding: 0 24px;
+}
+
 .alert {
-    padding: 15px;
-    margin-bottom: 20px;
+    padding: 12px 16px;
+    margin-bottom: 10px;
     border: 1px solid transparent;
     border-radius: 4px;
 }
@@ -56,4 +100,293 @@ nav a:hover {
     color: #0c5460;
     background-color: #d1ecf1;
     border-color: #bee5eb;
+}
+
+/* === Main Content Area === */
+main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 28px 24px 48px;
+}
+
+/* === Page Header === */
+.page-header {
+    border-bottom: 2px solid #aaa;
+    padding-bottom: 12px;
+    margin-bottom: 28px;
+}
+
+.page-header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+.page-header p {
+    margin: 6px 0 0;
+    color: #555;
+}
+
+/* === Section Header === */
+.section-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    border-bottom: 1px solid #bbb;
+    padding-bottom: 8px;
+    margin: 28px 0 16px;
+}
+
+.section-header h2,
+.section-header h3 {
+    margin: 0;
+    font-size: 1.15rem;
+}
+
+/* === Card List === */
+.card-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.card {
+    background: #fff;
+    border: 1px solid #bbb;
+    border-radius: 6px;
+    padding: 16px 20px;
+}
+
+.card-title {
+    font-size: 1.05rem;
+    font-weight: bold;
+    margin: 0 0 4px;
+}
+
+.card-meta {
+    font-size: 0.88rem;
+    color: #555;
+    margin: 0 0 8px;
+}
+
+.card-description {
+    margin: 8px 0 0;
+    font-size: 0.95rem;
+    color: #333;
+}
+
+/* === Detail View (project, org, category pages) === */
+.detail-view {
+    max-width: 740px;
+}
+
+.detail-meta {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 8px 20px;
+    margin: 0 0 28px;
+    padding: 16px 20px;
+    background: #fff;
+    border: 1px solid #bbb;
+    border-radius: 6px;
+}
+
+.detail-meta dt {
+    font-weight: bold;
+    color: #555;
+    white-space: nowrap;
+}
+
+.detail-meta dd {
+    margin: 0;
+}
+
+.detail-section {
+    margin-bottom: 28px;
+}
+
+.detail-section h2,
+.detail-section h3 {
+    font-size: 1.1rem;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 6px;
+    margin: 0 0 14px;
+}
+
+/* === Volunteer Section === */
+.volunteer-section {
+    margin: 20px 0;
+    padding: 16px 20px;
+    background: #fff;
+    border: 1px solid #bbb;
+    border-radius: 6px;
+}
+
+.volunteer-section p {
+    margin: 0 0 10px;
+    font-weight: bold;
+}
+
+/* === Action Links (admin) === */
+.admin-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 16px 0;
+    padding: 12px 16px;
+    background: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* === Empty State === */
+.empty-state {
+    color: #666;
+    font-style: italic;
+    padding: 8px 0;
+}
+
+/* === Forms === */
+.form-wrapper {
+    max-width: 480px;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 6px;
+    font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-family: inherit;
+    background: #fff;
+}
+
+.form-group textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: 2px solid #0066cc;
+    outline-offset: 1px;
+}
+
+/* === Buttons === */
+button[type="submit"] {
+    padding: 9px 22px;
+    font-size: 1rem;
+    font-family: inherit;
+    border: 1px solid #999;
+    border-radius: 4px;
+    cursor: pointer;
+    background: #f0f0f0;
+}
+
+button[type="submit"]:hover {
+    background: #e0e0e0;
+}
+
+/* === Tables === */
+.table-wrapper {
+    overflow-x: auto;
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead th {
+    text-align: left;
+    padding: 10px 14px;
+    background: #f0f0f0;
+    border-bottom: 2px solid #aaa;
+    font-size: 0.95rem;
+}
+
+tbody td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #ddd;
+    vertical-align: middle;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* === Dashboard === */
+.dashboard-info {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 8px 20px;
+    margin-bottom: 28px;
+    padding: 16px 20px;
+    background: #fff;
+    border: 1px solid #bbb;
+    border-radius: 6px;
+    max-width: 420px;
+}
+
+.dashboard-info dt {
+    font-weight: bold;
+    color: #555;
+}
+
+.dashboard-info dd {
+    margin: 0;
+}
+
+/* === Org Logo === */
+.org-logo {
+    max-width: 160px;
+    max-height: 100px;
+    display: block;
+    margin-bottom: 16px;
+}
+
+/* === Main Logo (home page) === */
+.main-logo {
+    display: block;
+    max-width: 320px;
+    margin: 24px auto;
+}
+
+/* === Home Hero === */
+.home-intro {
+    max-width: 600px;
+    font-size: 1.05rem;
+    margin-bottom: 24px;
+    line-height: 1.7;
+}
+
+/* === Site Footer === */
+.site-footer {
+    border-top: 1px solid #aaa;
+    padding: 16px 24px;
+    margin-top: 40px;
+    font-size: 0.88rem;
+    color: #555;
+}
+
+.site-footer-inner {
+    max-width: 960px;
+    margin: 0 auto;
 }

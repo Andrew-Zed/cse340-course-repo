@@ -1,21 +1,28 @@
 <%- include('partials/header') %>
-    <main>
+<main>
+    <div class="page-header">
         <h1><%= title %></h1>
-        <p>Service Project Categories</p>
+        <p>Browse projects by category</p>
+    </div>
 
-        <% if (categories && categories.length > 0) { %>
-            <ul>
-                <% categories.forEach(category => { %>
-                    <li>
+    <% if (categories && categories.length > 0) { %>
+        <ul class="card-list">
+            <% categories.forEach(category => { %>
+                <li class="card">
+                    <p class="card-title">
                         <a href="/category/<%= category.category_id %>"><%= category.name %></a>
-                    </li>
-                <% }) %>
-            </ul>
-        <% } else { %>
-            <p>No categories are available at this time.</p>
-        <% } %>
-        <% if (user && user.role_name === 'admin') { %>
-            <p><a href="/new-category">Add a New Category</a></p>
-        <% } %>
-    </main>
+                    </p>
+                </li>
+            <% }) %>
+        </ul>
+    <% } else { %>
+        <p class="empty-state">No categories are available at this time.</p>
+    <% } %>
+
+    <% if (user && user.role_name === 'admin') { %>
+        <div class="admin-actions">
+            <a href="/new-category">+ Add a New Category</a>
+        </div>
+    <% } %>
+</main>
 <%- include('partials/footer') %>

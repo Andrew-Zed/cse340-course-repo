@@ -1,32 +1,40 @@
 <%- include('partials/header') %>
 <main>
-    <h1><%= title %></h1>
-    <!-- <h2><%= categoryDetails.name %></h2> -->
+    <div class="page-header">
+        <h1><%= title %></h1>
+    </div>
 
-    <% if (user && user.role_name === 'admin') { %>
-        <p><a href="/edit-category/<%= categoryDetails.category_id %>">Edit Category</a></p>
-    <% } %>
+    <article class="detail-view">
+        <div class="detail-section">
+            <h2>Service Projects in this Category</h2>
+            <% if (projects && projects.length > 0) { %>
+                <ul class="card-list">
+                    <% projects.forEach(project => { %>
+                        <li class="card">
+                            <p class="card-meta">
+                                <%= new Date(project.project_date).toLocaleDateString('en-US', {
+                                    year: 'numeric', month: 'long', day: 'numeric'
+                                }) %>
+                                &mdash;
+                                <a href="/organization/<%= project.organization_id %>"><%= project.organization_name %></a>
+                            </p>
+                            <p class="card-title">
+                                <a href="/project/<%= project.project_id %>"><%= project.title %></a>
+                            </p>
+                            <p class="card-description"><%= project.description %></p>
+                        </li>
+                    <% }) %>
+                </ul>
+            <% } else { %>
+                <p class="empty-state">No service projects currently available for this category.</p>
+            <% } %>
+        </div>
 
-    <h3>Service Projects in this Category</h3>
-    <% if (projects && projects.length > 0) { %>
-        <ul>
-            <% projects.forEach(project => { %>
-                <li>
-                    <strong>
-                        <%= new Date(project.project_date).toLocaleDateString('en-US', {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric'
-                        }) %>:
-                    </strong>
-                    <a href="/project/<%= project.project_id %>"><%= project.title %></a>
-                    (<a href="/organization/<%= project.organization_id %>"><%= project.organization_name %></a>)
-                    <p><%= project.description %></p>
-                </li>
-            <% }) %>
-        </ul>
-    <% } else { %>
-        <p>No service projects are currently available for this category.</p>
-    <% } %>
+        <% if (user && user.role_name === 'admin') { %>
+            <div class="admin-actions">
+                <a href="/edit-category/<%= categoryDetails.category_id %>">Edit Category</a>
+            </div>
+        <% } %>
+    </article>
 </main>
 <%- include('partials/footer') %>
