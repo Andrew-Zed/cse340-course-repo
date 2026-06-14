@@ -38,6 +38,24 @@ html, body {
     white-space: nowrap;
 }
 
+/* === Hamburger toggle (hidden on desktop) === */
+.nav-toggle {
+    display: none;
+    background: none;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    padding: 5px 11px;
+    cursor: pointer;
+    font-size: 1.3rem;
+    line-height: 1;
+    color: #333;
+    margin-left: auto;
+}
+
+.nav-toggle:hover {
+    background: #f0f0f0;
+}
+
 /* === Navigation === */
 nav ul {
     list-style: none;
@@ -389,4 +407,441 @@ tbody tr:last-child td {
 .site-footer-inner {
     max-width: 960px;
     margin: 0 auto;
+}
+
+/* ============================================================
+   TRANSITIONS & HOVER STATES
+   ============================================================ */
+
+/* --- Flash message fade-in --- */
+@keyframes fadeSlideIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.alert {
+    animation: fadeSlideIn 0.25s ease forwards;
+}
+
+/* --- General content links --- */
+main a {
+    color: #0055aa;
+    transition: color 0.2s ease;
+}
+
+main a:hover {
+    color: #003377;
+}
+
+/* --- Nav links: sliding underline --- */
+nav a {
+    position: relative;
+    transition: color 0.2s ease;
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #0066cc;
+    transition: width 0.25s ease;
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+/* --- Hamburger button --- */
+.nav-toggle {
+    transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.nav-toggle:hover {
+    transform: scale(1.08);
+}
+
+/* --- Cards: lift + border highlight --- */
+.card {
+    transition: box-shadow 0.22s ease, transform 0.22s ease, border-color 0.22s ease;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    border-color: #0066cc;
+}
+
+/* --- Detail meta box --- */
+.detail-meta {
+    transition: box-shadow 0.2s ease;
+}
+
+.detail-meta:hover {
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* --- Volunteer section --- */
+.volunteer-section {
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.volunteer-section:hover {
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    border-color: #0066cc;
+}
+
+/* --- Admin action links --- */
+.admin-actions a {
+    padding: 4px 10px;
+    border-radius: 4px;
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.admin-actions a:hover {
+    color: #003377;
+    background-color: #ddeeff;
+}
+
+/* --- Submit buttons --- */
+button[type="submit"] {
+    transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+button[type="submit"]:hover {
+    background: #d8d8d8;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.14);
+}
+
+button[type="submit"]:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* --- Form inputs: border glow on focus --- */
+.form-group input,
+.form-group textarea,
+.form-group select {
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #0066cc;
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.18);
+}
+
+/* --- Table rows --- */
+tbody tr {
+    transition: background-color 0.15s ease;
+}
+
+tbody tr:hover {
+    background-color: #eaf4ff;
+}
+
+/* ============================================================
+   RESPONSIVE — Tablet  (≤ 900px)
+   ============================================================ */
+@media (max-width: 900px) {
+    .detail-view {
+        max-width: 100%;
+    }
+
+    .dashboard-info {
+        max-width: 100%;
+    }
+
+    .home-intro {
+        max-width: 100%;
+    }
+
+    .form-wrapper {
+        max-width: 100%;
+    }
+}
+
+/* ============================================================
+   RESPONSIVE — Mobile  (≤ 640px)
+   ============================================================ */
+@media (max-width: 640px) {
+
+    /* --- Header: keep title + button on one row --- */
+    .site-header {
+        padding: 0 16px;
+    }
+
+    .site-header-inner {
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: wrap;
+        padding: 12px 0;
+        gap: 0;
+    }
+
+    .site-title {
+        font-size: 1.05rem;
+    }
+
+    /* --- Show hamburger button --- */
+    .nav-toggle {
+        display: block;
+    }
+
+    /* --- Nav slides down when .open is toggled --- */
+    #mainNav {
+        display: block;
+        width: 100%;
+        max-height: 0;
+        overflow: hidden;
+        padding: 0;
+        border-top: none;
+        transition: max-height 0.3s ease, padding 0.25s ease, border-color 0.25s ease;
+    }
+
+    #mainNav.open {
+        max-height: 480px;
+        padding: 6px 0 10px;
+        border-top: 1px solid #ddd;
+    }
+
+    /* --- Centered nav links --- */
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+        width: 100%;
+    }
+
+    nav li {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+
+    nav a {
+        display: block;
+        padding: 11px 0;
+        font-size: 1rem;
+        border-bottom: 1px solid #eee;
+        text-align: center;
+    }
+
+    nav li:last-child a {
+        border-bottom: none;
+    }
+
+    /* --- Flash messages --- */
+    .flash-messages {
+        padding: 0 16px;
+        margin-top: 12px;
+    }
+
+    /* --- Main content --- */
+    main {
+        padding: 20px 16px 40px;
+    }
+
+    /* --- Page header --- */
+    .page-header h1 {
+        font-size: 1.4rem;
+    }
+
+    /* --- Detail meta: stack label above value --- */
+    .detail-meta {
+        grid-template-columns: 1fr;
+        gap: 2px;
+        padding: 14px 16px;
+    }
+
+    .detail-meta dt {
+        margin-top: 12px;
+        font-size: 0.82rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+    }
+
+    .detail-meta dt:first-child {
+        margin-top: 0;
+    }
+
+    .detail-meta dd {
+        font-size: 1rem;
+    }
+
+    /* --- Dashboard info --- */
+    .dashboard-info {
+        grid-template-columns: 1fr;
+        max-width: 100%;
+        gap: 2px;
+        padding: 14px 16px;
+    }
+
+    .dashboard-info dt {
+        margin-top: 12px;
+        font-size: 0.82rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+    }
+
+    .dashboard-info dt:first-child {
+        margin-top: 0;
+    }
+
+    /* --- Forms --- */
+    .form-wrapper {
+        max-width: 100%;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        font-size: 1rem;
+    }
+
+    button[type="submit"] {
+        width: 100%;
+        padding: 12px;
+    }
+
+    /* --- Cards --- */
+    .card {
+        padding: 14px 16px;
+    }
+
+    /* --- Admin actions --- */
+    .admin-actions {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    /* --- Volunteer section --- */
+    .volunteer-section {
+        padding: 14px 16px;
+    }
+
+    /* --- Images --- */
+    .org-logo {
+        max-width: 120px;
+    }
+
+    .main-logo {
+        max-width: 90%;
+    }
+
+    /* --- Table --- */
+    thead th,
+    tbody td {
+        padding: 8px 10px;
+        font-size: 0.9rem;
+    }
+
+    /* --- Footer --- */
+    .site-footer {
+        padding: 14px 16px;
+    }
+
+    /* ---- Touch / tap feedback (replaces desktop hover) ---- */
+
+    /* Remove default iOS blue flash on tap */
+    * {
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Nav links: full-width background highlight on hover and tap */
+    nav a {
+        border-radius: 0;
+        transition: background-color 0.18s ease, color 0.18s ease;
+    }
+
+    nav a:hover {
+        background-color: #ddeeff;
+        color: #003377;
+    }
+
+    nav a:active {
+        background-color: #b8d8ff;
+        color: #002255;
+    }
+
+    /* Disable the sliding underline on mobile (looks broken on touch) */
+    nav a::after {
+        display: none;
+    }
+
+    /* Cards: background + border highlight on tap; no lift */
+    .card {
+        transition: background-color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .card:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    .card:active {
+        background-color: #eaf4ff;
+        border-color: #0066cc;
+        transform: none;
+        box-shadow: none;
+    }
+
+    /* Content links inside main */
+    main a:active {
+        color: #003377;
+        opacity: 0.75;
+    }
+
+    /* Buttons: press-down scale */
+    button[type="submit"]:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    button[type="submit"]:active {
+        transform: scale(0.97);
+        background-color: #d0d0d0;
+        box-shadow: none;
+    }
+
+    /* Admin action links */
+    .admin-actions a:active {
+        background-color: #ddeeff;
+        color: #003377;
+    }
+
+    /* Table rows */
+    tbody tr:hover {
+        background-color: transparent;
+    }
+
+    tbody tr:active {
+        background-color: #eaf4ff;
+    }
+
+    /* Volunteer section: tap highlight */
+    .volunteer-section:hover {
+        box-shadow: none;
+        border-color: #bbb;
+    }
+
+    .volunteer-section:active {
+        border-color: #0066cc;
+        background-color: #f5faff;
+    }
+
+    /* Hamburger button */
+    .nav-toggle:hover {
+        transform: none;
+    }
+
+    .nav-toggle:active {
+        background-color: #ddeeff;
+        transform: scale(0.95);
+    }
 }

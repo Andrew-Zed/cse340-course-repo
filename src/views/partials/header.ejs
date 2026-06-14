@@ -10,7 +10,12 @@
     <header class="site-header">
         <div class="site-header-inner">
             <a href="/" class="site-title">CSE 340 Service Network</a>
-            <nav>
+
+            <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-label="Toggle navigation">
+                <span id="navToggleIcon">&#9776;</span>
+            </button>
+
+            <nav id="mainNav">
                 <ul>
                     <li><a href="/">Home</a></li>
                     <li><a href="/organizations">Organizations</a></li>
@@ -32,6 +37,26 @@
             </nav>
         </div>
     </header>
+
+    <script>
+        const navToggle = document.getElementById('navToggle');
+        const mainNav   = document.getElementById('mainNav');
+        const toggleIcon = document.getElementById('navToggleIcon');
+
+        navToggle.addEventListener('click', () => {
+            const isOpen = mainNav.classList.toggle('open');
+            navToggle.setAttribute('aria-expanded', isOpen);
+            toggleIcon.innerHTML = isOpen ? '&#10005;' : '&#9776;';
+        });
+
+        mainNav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mainNav.classList.remove('open');
+                navToggle.setAttribute('aria-expanded', 'false');
+                toggleIcon.innerHTML = '&#9776;';
+            });
+        });
+    </script>
 
     <div class="flash-messages">
         <% const messages = flash(); %>
